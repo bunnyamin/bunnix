@@ -1,0 +1,1 @@
+ATFTPD_ARGS="--user nobody --group nobody --daemon --no-multicast --maxthread 20 --verbose=7 --trace --logfile /var/atftpd.log /srv/tftp"
