@@ -1,1 +1,10 @@
+# Parameters to be passed to ATFTPD
+# $ man atftpd
+# Specify the IP address which atftpd binds to. Useful when --daemon is specified. Default is to bind to all interfaces. Only one address can be specified, the server can only listen to one or all interfaces. 
+# --bind-address 192.168.2.101
+# Specify the port on which atftpd listens. Useful when --daemon is specified. Default is standard tftp port as determined by getservbyname(3).
+# --port 69
+# When verbose level is set to 7, this will output debug information for each packet sent or received from the network. 
+# --trace
+
 ATFTPD_ARGS="--user nobody --group nobody --daemon --no-multicast --maxthread 20 --verbose=7 --trace --logfile /var/atftpd.log /srv/tftp"
