@@ -1,0 +1,16 @@
+[Unit]
+Description="Configure default router and gateway for wired and wireless devices with static IP addresses."
+
+#Requires=netctl@<NETWORK DEVICE WAN>.static.service netctl@<NETWORK DEVICE 1 LAN>.static.service netctl@<NETWORK DEVICE 2 LAN>.static.service
+Wants=netctl@<NETWORK DEVICE WAN>.static.service netctl@<NETWORK DEVICE 1 LAN>.static.service netctl@<NETWORK DEVICE 2 LAN>.static.service
+After=netctl@<NETWORK DEVICE WAN>.static.service netctl@<NETWORK DEVICE 1 LAN>.static.service netctl@<NETWORK DEVICE 2 LAN>.static.service
+
+OnFailure=<NETWORK DEVICE WAN>.force.service
+
+[Service]
+Type=oneshot
+#ExecStart=/usr/bin/ip route add default via 192.168.0.1 dev <NETWORK DEVICE WAN>
+ExecStart=/usr/bin/ip route add default via 192.168.0.1
+
+[Install]
+WantedBy=network-online.target
