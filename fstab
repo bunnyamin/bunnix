@@ -1,0 +1,12 @@
+# 
+# /etc/fstab: static file system information
+#
+# <device, file system>   <dir>  <type>  <options>  <dump>  <pass>
+# rsize, wsize DEFAULT 1024
+
+# Referencing the declared psuedo NFS device in grub, `/dev/nfs`,
+#   causes systemd `[FAILED] Failed to start Remount Root and Kernel File Systen.`.
+# /dev/nfs               /      nfs     rw,relatime,nfsvers=4,minorversion=2, ...    0 0
+
+# nfsroot=[NFS SERVER IP]:/[CLIENT PATH]
+192.168.2.101:/client    /      nfs     rw,relatime,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=192.168.2.102    0 0
