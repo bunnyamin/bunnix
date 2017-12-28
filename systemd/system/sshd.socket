@@ -15,9 +15,13 @@ Wants=sshdgenkeys.service
 # the network is not up in time.
 # * https://wiki.archlinux.org/index.php/Secure_Shell#Daemon_management (20171126)
 
+# ListenStream is a list of values. An empty value clears the list; it prevents
+# listing to the default port 22.
 ListenStream=
+
 # Connecting client must be on same subnet.
 ListenStream=<IP>:<SSH PORT>
+
 FreeBind=true
 Accept=yes
 
