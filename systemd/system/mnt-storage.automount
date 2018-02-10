@@ -1,0 +1,8 @@
+[Unit]
+Description=Automount /etc/systemd/system/mnt-storage.mount
+
+[Automount]
+Where=/mnt/storage
+
+[Install]
+WantedBy=multi-user.target
