@@ -12,4 +12,4 @@
 192.168.2.101:/client    /      nfs     rw,relatime,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=192.168.2.102    0 0
 
 # automount device when inserted
-UUID=01234567-89ab-cdef-0123-456789abcdef    /mnt/drive    ext4    rw,noatime,discard,auto,nofail    0 0
+UUID=01234567-89ab-cdef-0123-456789abcdef    /mnt/storage    ext4    rw,noatime,discard,auto,nofail    0 0
