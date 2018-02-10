@@ -1,0 +1,10 @@
+[Unit]
+Description=Automount NFS storage
+Requires=network-online.target
+#After=netctl.static.service # ? not necessary ?
+
+[Automount]
+Where=/srv/nfs
+
+[Install]
+WantedBy=multi-user.target
