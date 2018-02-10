@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount storage device
+
+[Mount]
+What=/dev/disk/by-uuid/012345678-90ab-cdef-0123-4567890abcdef
+Where=/mnt/storage
+Type=ext4
+TimeoutSec=3
+
+[Install]
+WantedBy=multi-user.target
