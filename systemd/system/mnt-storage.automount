@@ -1,3 +1,4 @@
+# Enable this unit `systemctl enable mnt-storage.automount`.
 [Unit]
 Description=Automount /etc/systemd/system/mnt-storage.mount
 
