@@ -1,3 +1,5 @@
+# .include directives are deprecated, and support for them will be removed in a future version of systemd.
+
 [Unit]
 Description="Configure default router and gateway for wired and wireless devices with static IP addresses."
 
