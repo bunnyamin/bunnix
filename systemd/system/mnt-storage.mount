@@ -1,3 +1,4 @@
+# Do not enable this unit.
 [Unit]
 Description=Mount storage device
 
