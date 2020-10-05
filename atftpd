@@ -16,4 +16,4 @@
 # --group nobody
 # Alternate way of specifying the group. If group is specified with --user and --group, the last option will be used.
 
-ATFTPD_ARGS="--daemon --no-multicast --maxthread 20 --verbose=7 --trace --logfile /var/atftpd.log /srv/tftp"
+ATFTPD_ARGS="--daemon --no-multicast --maxthread 20 --verbose=7 --trace --logfile /var/atftpd.log /srv/atftp"
