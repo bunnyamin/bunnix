@@ -1,0 +1,20 @@
+#
+# /etc/hosts: static lookup table for host names
+#
+
+# <ip-address>  <hostname.domain.org>      <hostname>
+127.0.0.1       localhost.localdomain      ip4localhost
+::1             ip6.localhost.localdomain  ip6localhost
+
+# `getent hosts <IP>` should return HOSTNAME---->
+#             <---- `getent ahosts <HOSTNANE>` should return IP
+# 192.168.0.1                              gateway
+# nd[1-3]: the name of the network device.
+192.168.0.101   nd1.localdomain            server servernd1
+192.168.1.101   nd2.localdomain            server servernd2
+192.168.2.101   nd3.localdomain            server servernd3
+
+192.168.1.102   client1.localdomain        client1
+192.168.2.102   client2.localdomain        client2
+
+# End of file

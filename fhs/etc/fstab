@@ -1,0 +1,15 @@
+# 
+# /etc/fstab: static file system information
+#
+# <device, file system>   <dir>  <type>  <options>  <dump>  <pass>
+# rsize, wsize DEFAULT 1024
+
+# <NFS SERVER IP>:/<CLIENT NFS PATH>
+# Note, the client NFS path is relative to the NFS root path. E.g. file path `/srv/x/y` with NFS root path `/srv/x` is defined as `/y`.
+
+192.168.2.101:/client                        /               nfs    rw,relatime,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,hard,intr,namlen=255,timeo=600,retrans=2,clientaddr=192.168.2.102  0 0
+192.168.2.101:/other/directory               /dir            nfs    rw,relatime,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,hard,intr,namlen=255,timeo=600,retrans=2,clientaddr=192.168.2.102  0 0
+
+# automount device when inserted
+UUID=01234567-89ab-cdef-0123-456789abcdef    /mnt/storage    ext4   rw,noatime,discard,auto,nofail    0 0
+

@@ -1,0 +1,19 @@
+Description='A simple WPA encrypted wireless connection using a static IP'
+Interface=<NETWORK DEVICE WAN>wlp6s0
+Connection=wireless
+
+# Allowed for wireless connections, but not recommended.
+#ForceConnect=yes
+
+Security=wpa-config
+ESSID='<ACCESS POINT NAME>'
+WPAConfigFile=/etc/wpa_supplicant/wpa_supplicant.conf
+
+IP=static
+
+# The IP example fpr the server is the "gateway" for other network devices.
+Address=('<SERVER IP>192.168.0.101/24')
+DNS=('<DNS IP>192.168.0.1')
+
+# Uncomment this if your ssid is hidden
+#Hidden=yes

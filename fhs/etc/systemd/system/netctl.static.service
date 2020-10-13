@@ -1,0 +1,17 @@
+# .include directives are deprecated, and support for them will be removed in a future version of systemd.
+
+[Unit]
+Description="Configure default router and gateway for netwok devicess with static IP addresses."
+
+# The `*.static.service` files are defined as `/etc/netctl/<NETWORK DEVICE (n)>.static.service`.
+Requires=netctl@<NETWORK DEVICE (0) THE GATEWAY>enp0s0.static.service netctl@<NETWORK DEVICE (1)>enp1s0.static.service netctl@<NETWORK DEVICE (2)>enp2s0.static.service
+After=netctl@<NETWORK DEVICE (0) THE GATEWAY>enp0s0.static.service netctl@<NETWORK DEVICE (1)>enp1s0.static.service netctl@<NETWORK DEVICE (2)>enp2s0.static.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ip addr add <NETWORK DEVICE (0) IP>192.168.0.101/24 brd + dev <NETWORK DEVICE (0) GATEWAY>enp0s0
+ExecStart=/usr/bin/ip link set up dev <NETWORK DEVICE (0) GATEWAY>enp0s0
+ExecStart=/usr/bin/ip route add default via <NETWORK DEVICE (0) GATEWAY IP>192.168.0.1
+
+[Install]
+WantedBy=network-online.target

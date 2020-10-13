@@ -1,0 +1,24 @@
+# /etc/exports - exports(5) - directories exported to NFS clients
+#
+# Example for NFSv2 and NFSv3:
+#  /srv/home        hostname1(rw,sync) hostname2(ro,sync)
+# Example for NFSv4:
+#  /srv/nfs4        hostname1(rw,sync,fsid=0)
+#  /srv/nfs4/home   hostname1(rw,sync,nohide)                                                                                                                                                                 
+# Using Kerberos and integrity checking:
+#  /srv/nfs4        *(rw,sync,sec=krb5i,fsid=0)
+#  /srv/nfs4/home   *(rw,sync,sec=krb5i,nohide)
+#
+# Use `exportfs -arv` to reload.
+
+# File format, note, no spaces between options.
+# directory client1(option1,option2,...) client2(option1,option2,...) ...
+
+# If `idmapping` is disabled then `sec=sys` should not have any effect.
+
+# The NFSv4 requires a "root" directory from which alla sub directories are derived.
+/srv/nfs              <CLIENT IP>192.168.1.102(rw,sync,no_root_squash,no_all_squash,no_subtree_check,fsid=0)
+
+/srv/nfs/x            <CLIENT IP>192.168.1.102(rw,sync,no_root_squash,no_all_squash,no_subtree_check)
+/srv/nfs/x/y          <CLIENT IP>192.168.1.102(rw,sync,no_root_squash,no_all_squash,no_subtree_check)
+

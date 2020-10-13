@@ -1,0 +1,21 @@
+Description='Static ethernet connection for <NETWORK DEVICE LAN>'
+Interface=<NETWORK DEVICE LAN>enp0s0
+Connection=ethernet
+
+# Enable static IP on a wired interface regardless if the wire is connected or not.
+ForceConnect=yes
+SkipNoCarrier=yes
+
+IP=static
+# Remember to update `/etc/hosts`.
+Address=('<SERVER IP>192.168.1.101/24')
+DNS=('<DNS IP>192.168.0.1')
+
+## For IPv6 autoconfiguration
+#IP6=stateless
+
+## For IPv6 static address configuration
+#IP6=static
+#Address6=('1234:5678:9abc:def::1/64' '1234:3456::123/96')
+#Routes6=('abcd::1234')
+#Gateway6='1234:0:123::abcd'
