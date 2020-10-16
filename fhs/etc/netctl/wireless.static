@@ -1,5 +1,7 @@
+# `-rw-r--r-- root root /etc/netctl/wireless.static`
+
 Description='A simple WPA encrypted wireless connection using a static IP'
-Interface=<NETWORK DEVICE WAN>wlp6s0
+Interface=<NETWORK DEVICE WAN>wlp0s0
 Connection=wireless
 
 # Allowed for wireless connections, but not recommended.

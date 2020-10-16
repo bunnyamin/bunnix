@@ -1,3 +1,4 @@
+# `-rw-r--r-- root root /etc/ssh/sshd_config`
 #       $OpenBSD: sshd_config,v 1.101 2017/03/14 07:19:07 djm Exp $
 
 # This is the sshd server system-wide configuration file.  See

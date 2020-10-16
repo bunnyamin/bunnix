@@ -1,4 +1,4 @@
-# .include directives are deprecated, and support for them will be removed in a future version of systemd.
+# `-rw-r--r-- root root /etc/systemd/system/netctl.static.service`
 
 [Unit]
 Description="Configure default router and gateway for netwok devicess with static IP addresses."

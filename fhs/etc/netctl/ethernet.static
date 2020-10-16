@@ -1,3 +1,5 @@
+# # `-rw-r--r-- root root /etc/netctl/ethernet.static`
+
 Description='Static ethernet connection for <NETWORK DEVICE LAN>'
 Interface=<NETWORK DEVICE LAN>enp0s0
 Connection=ethernet

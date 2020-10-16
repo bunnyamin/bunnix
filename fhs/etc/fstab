@@ -1,5 +1,4 @@
-# 
-# /etc/fstab: static file system information
+# `-rw-r--r-- root root /etc/fstab` static file system information
 #
 # <device, file system>   <dir>  <type>  <options>  <dump>  <pass>
 # rsize, wsize DEFAULT 1024
