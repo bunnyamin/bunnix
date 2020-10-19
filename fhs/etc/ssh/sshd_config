@@ -21,7 +21,7 @@ Port <Maximum value for a port can be 2^16)-1, or 0-65,535.>
 
 # Connecting client must be on same subnet.
 ListenAddress <IP>
-#ListenAddress ::
+Port <PORT>
 
 # Supported HostKey algorithms by order of preference.
 HostKey /etc/ssh/ssh_host_ed25519_key
