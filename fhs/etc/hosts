@@ -1,8 +1,8 @@
 # `-rw-r--r-- root root /etc/hosts` static lookup table for host names
 
 # <ip-address>  <hostname.domain.org>      <hostname>
-127.0.0.1       localhost.localdomain      ip4localhost
-::1             ip6.localhost.localdomain  ip6localhost
+127.0.0.1       localhost.localdomain      localhost ip4localhost
+::1             ip6.localhost.localdomain  localhost ip6localhost
 
 # `getent hosts <IP>` should return HOSTNAME---->
 #             <---- `getent ahosts <HOSTNANE>` should return IP

@@ -1,0 +1,16 @@
+# `~/.config/systemd/user/x0vncserver.service`
+# Enable service `systemctl --user enable x0vncserver`.
+
+[Unit]
+Description=Remote desktop service (VNC)
+
+[Service]
+Type=simple
+
+# Wait for Xorg started by `${USER}`.
+ExecStartPre=/bin/sh -c 'while ! pgrep -U "$USER" Xorg; do sleep 2; done'
+
+ExecStart=/usr/bin/x0vncserver -display :0 -rfbport=5901 -ZlibLevel=9 -ImprovedHextile -SecurityTypes None -localhost
+
+[Install]
+WantedBy=default.target
