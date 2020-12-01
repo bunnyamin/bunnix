@@ -1,4 +1,4 @@
-# # `-rw-r--r-- root root /etc/netctl/ethernet.static`
+# `-rw-r--r-- root root /etc/netctl/ethernet.static`
 
 Description='Static ethernet connection for <NETWORK DEVICE LAN>'
 Interface=<NETWORK DEVICE LAN>enp0s0
@@ -8,9 +8,14 @@ Connection=ethernet
 ForceConnect=yes
 SkipNoCarrier=yes
 
+#TimeoutUp=300
+#TimeoutCarrier=300
+
 IP=static
 # Remember to update `/etc/hosts`.
 Address=('<SERVER IP>192.168.1.101/24')
+#Routes=('192.168.0.1/24 via 192.168.1.1')
+#Gateway=('192.168.0.1')
 DNS=('<DNS IP>192.168.0.1')
 
 ## For IPv6 autoconfiguration

@@ -9,9 +9,13 @@ Connection=wireless
 
 Security=wpa-config
 ESSID='<ACCESS POINT NAME>'
-WPAConfigFile=/etc/wpa_supplicant/wpa_supplicant.conf
+#ctrl_interface=/var/run/wpa_supplicant # Is assigned in "default.conf".
+WPAConfigFile=/sub/bunnix/fhs/etc/wpa_supplicant/default.conf
 
+#IP=dhcp
 IP=static
+
+#Gateway='192.168.0.1'
 
 # The IP example fpr the server is the "gateway" for other network devices.
 Address=('<SERVER IP>192.168.0.101/24')
