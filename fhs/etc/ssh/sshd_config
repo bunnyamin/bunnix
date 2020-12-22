@@ -11,8 +11,8 @@
 # possible, but leave them commented.  Uncommented options override the
 # default value.
 
-AllowUsers <USER 1> [USER 2, ...]
-AllowGroups <GROUP 1> [GROUP 2, ...]
+#AllowUsers <USER 1> [USER 2, ...]
+#AllowGroups <GROUP 1> [GROUP 2, ...]
 
 # If the port is exposed to the WAN then it is recommened to change the default port from 22 to a high random number.
 # Adding additional ports on new lines will result in multiple ports being available.
@@ -20,8 +20,9 @@ Port <Maximum value for a port can be `(2^16)-1`, that is `0-65 535`.>
 #AddressFamily any
 
 # Connecting client must be on same subnet.
-ListenAddress <IP>
-Port <PORT>
+# The netwok has to be assigned before otherwise the `ListenAddress` cannot be binded.
+#ListenAddress <IP>
+
 
 # Supported HostKey algorithms by order of preference.
 HostKey /etc/ssh/ssh_host_ed25519_key
@@ -104,6 +105,10 @@ ChallengeResponseAuthentication no
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
 
+TCPKeepAlive yes
+ClientAliveInterval 60
+ClientAliveCountMax 1000
+
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
 #GatewayPorts no
@@ -113,12 +118,9 @@ UsePAM yes
 #PermitTTY yes
 PrintMotd no # pam does that
 #PrintLastLog yes
-#TCPKeepAlive yes
 #UseLogin no
 #PermitUserEnvironment no
 #Compression delayed
-#ClientAliveInterval 0
-#ClientAliveCountMax 3
 #UseDNS no
 #PidFile /run/sshd.pid
 #MaxStartups 10:30:100

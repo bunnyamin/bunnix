@@ -6,8 +6,11 @@
 # <NFS SERVER IP>:/<CLIENT NFS PATH>
 # Note, the client NFS path is relative to the NFS root path. E.g. file path `/srv/x/y` with NFS root path `/srv/x` is defined as `/y`.
 
-192.168.2.101:/client                        /               nfs    rw,relatime,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,hard,intr,namlen=255,timeo=600,retrans=2,clientaddr=192.168.2.102  0 0
-192.168.2.101:/other/directory               /dir            nfs    rw,relatime,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,hard,intr,namlen=255,timeo=600,retrans=2,clientaddr=192.168.2.102  0 0
+# `intr` is deprecated.
+# `timeo=600,retrans=2` is only relevant for `soft` and not `hard` mount option.
+
+192.168.2.101:/client                        /               nfs    rw,noatime,async,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,hard,namlen=255,clientaddr=192.168.2.102  0 0
+192.168.2.101:/other/directory               /dir            nfs    rw,noatime,async,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,hard,namlen=255,clientaddr=192.168.2.102  0 0
 
 # If `/boot/esp` 
 #UUID=abcd-ef01                               /boot/esp       vfat  rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro  0 2
@@ -16,4 +19,4 @@
 UUID=01234567-89ab-cdef-0123-456789abcdef    /mnt/storage    ext4   rw,noatime,discard,auto,nofail    0 0
 
 # Swap file. Cannot use UIID or Label.
-/swap  none  swap  defaults  0  0
+/swap  none  swap  defaults  0 0
