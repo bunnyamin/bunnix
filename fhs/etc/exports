@@ -1,10 +1,12 @@
-# `-rw-r--r-- root root /etc/exports` - exports(5) - directories exported to NFS clients
+# `-rw-r--r-- root root /etc/exports`
+# Directories exported to NFS clients
+# `man exports(5)`
 #
 # Example for NFSv2 and NFSv3:
 #  /srv/home        hostname1(rw,sync) hostname2(ro,sync)
 # Example for NFSv4:
 #  /srv/nfs4        hostname1(rw,sync,fsid=0)
-#  /srv/nfs4/home   hostname1(rw,sync,nohide)                                                                                                                                                                 
+#  /srv/nfs4/home   hostname1(rw,sync,nohide)
 # Using Kerberos and integrity checking:
 #  /srv/nfs4        *(rw,sync,sec=krb5i,fsid=0)
 #  /srv/nfs4/home   *(rw,sync,sec=krb5i,nohide)
