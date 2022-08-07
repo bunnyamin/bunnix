@@ -3,8 +3,6 @@
 [Unit]
 Description=OpenSSH Daemon
 Wants=sshdgenkeys.service
-
-# Replace `network.target` with `network-online.target`. It depends on `systemd-networkd-wait-online.service`.
 After=sshdgenkeys.service network-online.target
 
 [Service]

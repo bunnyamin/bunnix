@@ -19,9 +19,9 @@ ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment wan_ip=$(ip ad
 ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment gw_ip=$(ip route show | head -1 | awk '{print $3}')"
 
 # Test the ruleset
-# nft -D isp_lan_ipv4=1.2.3.4 -D isp_gw_ipv4=1.2.3.4 -cf /sub/bunnix/fhs/etc/nftables.router.conf
+# nft -D isp_lan_ipv4=1.2.3.4 -D isp_gw_ipv4=1.2.3.4 -cf /etc/nftables/router.conf
 
-ExecStart=/usr/bin/nft --define isp_lan_ipv4=${wan_ip} --define isp_gw_ipv4=${gw_ip} -f /sub/bunnix/fhs/etc/nftables.router.conf
+ExecStart=/usr/bin/nft --define isp_lan_ipv4=${wan_ip} --define isp_gw_ipv4=${gw_ip} -f /etc/nftables/router.conf
 
 [Install]
 WantedBy=multi-user.target

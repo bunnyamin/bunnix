@@ -1,9 +1,9 @@
 # `-rw-r--r-- root root /etc/systemd/system/netctl.static.service`
 
-# .include directives are deprecated, and support for them will be removed in a future version of systemd.
+# `.include` directives are deprecated, and support for them will be removed in a future version of SystemD.
 
 [Unit]
-Description="Configure default router and gateway for netwok devicess with static IP addresses."
+Description="Configure default router and gateway for netwok devices with static IP addresses."
 
 # The `*.static.service` files are defined as `/etc/netctl/<NETWORK DEVICE (n)>.static.service`.
 Requires=netctl@<NETWORK DEVICE (0) THE GATEWAY>enp0s0.static.service netctl@<NETWORK DEVICE (1)>enp1s0.static.service netctl@<NETWORK DEVICE (2)>enp2s0.static.service
