@@ -1,0 +1,12 @@
+[Match]
+Name=<INTERFACE>
+
+[Network]
+DHCP=yes
+
+Address=<IP ADDRESS CIDR>
+
+# If not already enabled in `/etc/sysctl.d/`
+#IPForward=yes
+
+

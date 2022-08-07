@@ -1,0 +1,14 @@
+# `-rw-r--r-- 1 root root 301 jul 24 16:58 /usr/lib/systemd/system/nftables.service`
+[Unit]
+Description=Netfilter Tables
+Documentation=man:nft(8)
+Wants=network-pre.target
+Before=network-pre.target
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/nft -f /etc/nftables.conf
+
+[Install]
+WantedBy=multi-user.target

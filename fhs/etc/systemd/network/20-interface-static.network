@@ -1,0 +1,10 @@
+[Match]
+Name=<INTERFACE>
+
+[Network]
+DHCP=no
+Address=<IP ADDRESS CIDR>
+
+
+
+

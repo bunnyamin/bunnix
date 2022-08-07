@@ -1,0 +1,17 @@
+# `-rw-r--r-- 1 root root 301 jul 24 16:58 /usr/lib/systemd/system/sshd.service`
+
+[Unit]
+Description=OpenSSH Daemon
+Wants=sshdgenkeys.service
+
+# Replace `network.target` with `network-online.target`. It depends on `systemd-networkd-wait-online.service`.
+After=sshdgenkeys.service network-online.target
+
+[Service]
+ExecStart=/usr/bin/sshd -D
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

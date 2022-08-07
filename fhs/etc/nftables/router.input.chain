@@ -1,0 +1,51 @@
+# `-rw-r--r-- root root /etc/nftables/router.input.chain`
+
+# INPUT RULES
+# Intended for `router.conf`.
+
+chain input {
+  #log prefix "[nftables] Input: " flags all counter
+
+  type filter hook input priority 0; policy drop
+
+  # Early drop of invalid connections
+  ct state invalid drop
+
+  # Allow traffic from loopback interface only if from localhost
+  iifname "lo" ip  saddr $loopback_ipv4 ct state {established, related, new} accept
+  iifname "lo" ip  saddr $prv6_ipv4     ct state {established, related, new} accept
+  iifname "lo" ip6 saddr $loopback_ipv6 ct state {established, related, new} accept
+
+  # Allow all ICMP (ping) and IGMP (multicast) traffic
+  # * The limit rate is intended to prevent some types of flood attacks.
+  # * `ipv6-icmp` and `icmpv6` are aliases.
+  ip protocol icmp   limit rate 4/second ct state {established, related} accept
+  ip6 nexthdr icmpv6 limit rate 4/second ct state {established, related} accept
+  ip protocol igmp   limit rate 4/second ct state {established, related} accept
+
+  #
+  # General rules
+  #
+
+  # Allow ALL connections
+  iifname . ip saddr . tcp sport . ip daddr . tcp dport $in_iif_ipv4_tcp_nc ct state {established, related, new} accept
+  iifname . ip saddr . udp sport . ip daddr . udp dport $in_iif_ipv4_udp_nc ct state {established, related, new} accept
+
+  # Allow ESTABLISHED connections
+  iifname . ip saddr . tcp sport . ip daddr . tcp dport $in_iif_ipv4_tcp_ec ct state {established, related} accept
+  iifname . ip saddr . udp sport . ip daddr . udp dport $in_iif_ipv4_udp_ec ct state {established, related} accept
+
+  #
+  # Special rules
+  #
+
+  # For example, filter based on MAC.
+  iifname wlp1s1 ether saddr 00:00:00:00:00:00 ether daddr 00:00:00:00:00:01 ct state {established, related, new} accept
+
+  #
+  # Log
+  #
+  ip saddr != $log_ignore_ipv4 tcp dport != $log_ignore_tcp log prefix "[nftables] Input Denied TCP: " flags all counter
+  ip saddr != $log_ignore_ipv4 udp dport != $log_ignore_udp log prefix "[nftables] Input Denied UDP: " flags all counter
+
+}

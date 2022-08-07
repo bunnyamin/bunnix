@@ -1,0 +1,48 @@
+# `-rw-r--r-- root root /etc/nftables/router.postrouting.chain`
+
+# POSTROUTING CHAIN
+# Intended for `router.conf`.
+
+chain postrouting {
+  #log prefix "[nftables] Postrouting: " flags all counter
+
+  type nat hook postrouting priority 100;
+
+  # Allow traffic from loopback interface only if from localhost
+  oifname "lo" ip saddr $loopback_ipv4 ip daddr $loopback_ipv4 ct state {established, related, new} accept
+
+  # Masquerade traffic
+  # All traffic from `iifname` are shown as coming from `oifname`.
+
+  # LAN to VPN
+  iifname $lan_if oifname $vpn_if masquerade
+
+  # LAN to WAN traffic
+  # The LAN to WAN traffic only works if the VPN is down. However, disable it
+  # in order to prevent further traffic on VPN failure. That is, by disabling
+  # the WAN it should function as a "killswitch".
+  #iifname $lan_if oifname $wan_if masquerade
+
+  #
+  # General rules
+  #
+
+  # Allow ALL connections
+  oifname . ip saddr . tcp sport . ip daddr . tcp dport $post_oif_ipv4_tcp_nc ct state {established, related, new} accept
+  oifname . ip saddr . udp sport . ip daddr . udp dport $post_oif_ipv4_udp_nc ct state {established, related, new} accept
+
+  # Allow ESTABLISHED connections
+  oifname . ip saddr . tcp sport . ip daddr . tcp dport $post_oif_ipv4_tcp_ec ct state {established, related} accept
+  oifname . ip saddr . udp sport . ip daddr . udp dport $post_oif_ipv4_udp_ec ct state {established, related} accept
+
+  #
+  # Special rules
+  #
+
+  #
+  # Log
+  #
+  ip saddr != $log_ignore_ipv4 tcp dport != $log_ignore_tcp log prefix "[nftables] Postrouting Denied TCP: " flags all counter
+  ip saddr != $log_ignore_ipv4 udp dport != $log_ignore_udp log prefix "[nftables] Postrouting Denied UDP: " flags all counter
+
+}
