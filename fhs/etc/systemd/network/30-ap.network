@@ -5,9 +5,11 @@ Name=wlv0
 DHCP=yes
 
 ConfigureWithoutCarrier=true
-RequiredForOnline=false
 
 Address=192.168.99.1/24
+
+[Link]
+RequiredForOnline=false
 
 [DHCP]
 UseDNS=true

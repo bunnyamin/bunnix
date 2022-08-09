@@ -13,7 +13,7 @@
 192.168.2.101:/client                        /               nfs    rw,noatime,async,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,hard,namlen=255,clientaddr=192.168.2.102  0 0
 192.168.2.101:/other/directory               /dir            nfs    rw,noatime,async,nfsvers=4,minorversion=2,rsize=1048576,wsize=1048576,hard,namlen=255,clientaddr=192.168.2.102  0 0
 
-# If `/boot/esp` 
+# If `/boot/esp`
 #UUID=abcd-ef01                               /boot/esp       vfat  rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro  0 2
 
 # automount device when inserted

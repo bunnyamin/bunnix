@@ -8,5 +8,3 @@ Address=<IP ADDRESS CIDR>
 
 # If not already enabled in `/etc/sysctl.d/`
 #IPForward=yes
-
-
