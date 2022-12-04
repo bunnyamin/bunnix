@@ -1,0 +1,5 @@
+The directory `/sub/bunnix/fhs/usr/lib/systemd/system` should be empty.
+
+Files in this directory are installed services, That is "objective".
+If necessary to change them (subjective) then the modified services should be
+placed directly in `/sub/bunnix/fhs/etc/systemd/system`.

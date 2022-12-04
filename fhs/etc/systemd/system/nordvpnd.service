@@ -1,0 +1,25 @@
+# `-rw-r--r-- root root /etc/systemd/system/nordvpnd.service`
+
+[Unit]
+Description=NordVPN Daemon
+
+#Requires=nordvpnd.socket # default
+
+Requires=nordvpnd.socket network.target nftables.router.service
+After=network-online.target nftables.router.service
+
+[Service]
+ExecStart=/usr/sbin/nordvpnd
+NonBlocking=true
+KillMode=process
+Restart=on-failure
+RestartSec=5
+# centos7 RuntimeDirectory ignored
+RuntimeDirectory=nordvpn
+RuntimeDirectoryMode=0770
+# User=root
+Group=nordvpn
+
+[Install]
+WantedBy=default.target
+

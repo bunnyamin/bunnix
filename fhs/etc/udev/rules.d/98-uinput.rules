@@ -1,0 +1,3 @@
+# `-rw-r--r-- root root /etc/udev/rules.d/98-uinput.rules`
+
+KERNEL=="uinput", GROUP="uinput", MODE="620"

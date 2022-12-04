@@ -1,0 +1,19 @@
+# `-rw-r--r-- 1 root root 301 jul 24 16:58 /etc/systemd/system/qemu@.service`
+
+[Unit]
+Description=Initalizing Qemu guests after all system services were loaded
+After=default.target
+#Before=shutdown.target reboot.target poweroff.target halt.target
+
+[Service]
+Type=forking
+Environment="haltcmd=kill -INT $MAINPID"
+EnvironmentFile=/etc/conf.d/qemu.d/%i
+ExecStart=/usr/bin/qemu-system-x86_64 -name %i $args
+
+ExecStop=/usr/bin/bash -c ${haltcmd}
+ExecStop=/usr/bin/bash -c 'while nc ${host} ${ssh_port}; do sleep 1; done'
+
+[Install]
+WantedBy=multi.user.target
+

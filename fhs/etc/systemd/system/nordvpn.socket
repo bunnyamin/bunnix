@@ -1,0 +1,17 @@
+# `-rw-r--r-- root root /etc/systemd/system/nordvpnd.socket`
+
+[Unit]
+Description=NordVPN Daemon Socket
+PartOf=nordvpnd.service
+
+[Socket]
+ListenStream=/run/nordvpn/nordvpnd.sock
+NoDelay=true
+# SocketUser=root
+SocketGroup=nordvpn
+SocketMode=0770
+NoDelay=true
+
+[Install]
+WantedBy=sockets.target
+

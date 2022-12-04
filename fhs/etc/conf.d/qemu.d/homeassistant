@@ -1,0 +1,16 @@
+host=127.0.0.1
+ssh_port=<SSH PORT>9999
+
+args="-enable-kvm -m 2G -cpu host -k sv -daemonize -vnc :2 -boot order=d             \
+  -chardev serial,path=/dev/serial/by-id/usb-0000_0000-if00,id=acm                   \
+  -usb -device usb-serial,chardev=acm                                                \
+  -nic user,hostfwd=tcp::9997-:8123,hostfwd=tcp::9998-:4357,hostfwd=tcp::9999-:22    \
+  -drive if=pflash,format=raw,readonly=on,file=/usr/share/edk2-ovmf/x64/OVMF_CODE.fd \
+  -drive if=pflash,format=raw,file=/vm/haos_9.qemu.OVMF_VARS.fd                      \
+  -drive if=ide,format=raw,media=disk,index=1,file=fat:rw:/obj/tmp/transfer/         \
+  -drive format=qcow2,index=0,media=disk,file=/os/haos_ova-9.0.qcow2"
+
+haltcmd="ssh -vx root@${host} -p ${ssh_port} -i ~/.ssh/prv/root\@homeassistant \
+  'source /etc/profile.d/homeassistant.sh && ha host shutdown'"
+
+
