@@ -3,6 +3,7 @@
 
 [Unit]
 Description=Remote desktop service (VNC)
+After=sshd.service
 
 [Service]
 Type=simple

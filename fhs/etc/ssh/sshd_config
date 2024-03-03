@@ -17,12 +17,17 @@
 # If the port is exposed to the WAN then it is recommened to change the default port from 22 to a high random number.
 # Adding additional ports on new lines will result in multiple ports being available.
 Port <Maximum value for a port can be `(2^16)-1`, that is `0-65 535`.>
-#AddressFamily any
+
+# Port X
+# Port Y
 
 # Connecting client must be on same subnet.
 # The netwok has to be assigned before otherwise the `ListenAddress` cannot be binded.
-#ListenAddress <IP>
+#ListenAddress <IP 1>
+#ListenAddress <IP 2>:<Port 1>
+#ListenAddress <IP 3>:<Port 2>
 
+#AddressFamily any
 
 # Supported HostKey algorithms by order of preference.
 HostKey /etc/ssh/ssh_host_ed25519_key
