@@ -1,9 +1,0 @@
-[NetDev]
-Description=Virtual network interface for wireless access point
-Name=wlv0
-Kind=wlan
-
-[WLAN]
-PhysicalDevice=phy0
-Type=ap
-WDS=false
