@@ -2,26 +2,32 @@
 [Unit]
 Description=Netfilter Tables to replace the default table rules after the network is up and IP is assigned.
 Documentation=man:nft(8)
-Requires=network.target nftables.service
+
 After=network-online.target
+Wants=network-online.target
 
 [Service]
+# If `network-online.target` fails
+ExecStartPre=/bin/sleep 30
+
 Type=oneshot
 
-# `tail -2`           # Extract the last two rows.
-# `head -1`           # Extract the first row.
-# `awk '{print $2}'`  # The second "entity" in row. That is, the "IP".
-# `cut -d/ -f1`       # Delete the CIDR.
-ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment wan_ip=$(ip addr show wlp6s0 | tail -2 | head -1 | awk '{print $2}' | cut -d/ -f1)"
-
-# `head -1`           # Extract the first row.
-# `awk '{print $3}'`  # The third "entity" in row. That is, the "IP".
-ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment gw_ip=$(ip route show | head -1 | awk '{print $3}')"
+ExecStart=/usr/bin/bash -c "\
+   isp_00_str=$(ip addr show <INTERFACE #1> | grep 'inet\\b') \
+&& isp_01_str=$(ip addr show <INTERFACE #2> | grep 'inet\\b') \
+&& isp_00_ipv4=$(echo \"$isp_00_str\" | tail -1 | awk '{print $2}' | cut -d/ -f1) \
+&& isp_01_ipv4=$(echo \"$isp_01_str\" | tail -1 | awk '{print $2}' | cut -d/ -f1) \
+&& isp_00_gw_ipv4=$(ip route show | head -1 | awk '{print $3}') \
+&& isp_01_gw_ipv4=$(ip route show | head -1 | awk '{print $3}') \
+&& exec /usr/bin/nft \
+  --define wan_00_ipv4=$$isp_00_ipv4 \
+  --define wan_00_gw_ipv4=$$isp_00_gw_ipv4 \
+  --define wan_01_ipv4=$$isp_01_ipv4 \
+  --define wan_01_gw_ipv4=$$isp_01_gw_ipv4 \
+  -f /etc/nftables/router/base.conf"
 
 # Test the ruleset
-# nft -D isp_lan_ipv4=1.2.3.4 -D isp_gw_ipv4=1.2.3.4 -cf /etc/nftables/router.conf
-
-ExecStart=/usr/bin/nft --define isp_lan_ipv4=${wan_ip} --define isp_gw_ipv4=${gw_ip} -f /etc/nftables/router.conf
+# nft -D wan_00_ipv4=1.2.3.4 -D wan_00_gw_ipv4=1.2.3.4 -D wan_01_ipv4=1.2.3.4 -D wan_01_gw_ipv4=1.2.3.4 -cf /etc/nftables/router/base.conf
 
 [Install]
 WantedBy=multi-user.target

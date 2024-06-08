@@ -1,0 +1,25 @@
+[Unit]
+Description=Control LED light for WAN.
+
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+
+# Ping default route to WAN
+ExecStart=/usr/bin/bash -c "route_str=$(ip route show | head -1 | awk '{print $3}'); \
+while sleep 30; do \
+if grep -xq 'down' '/sys/class/net/<INTERFACE>/operstate'; then \
+  echo 'none' > '/sys/class/leds/green:wan/trigger'; \
+else \
+  if ping -qc1 $route_str; then \
+    echo 'default-on' > '/sys/class/leds/green:wan/trigger'; \
+  else \
+    echo 'heartbeat' > '/sys/class/leds/green:wan/trigger'; \
+  fi \
+fi \
+done"
+
+[Install]
+WantedBy=multi-user.target

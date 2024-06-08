@@ -1,0 +1,12 @@
+[Unit]
+Description=Control LED light for power.
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+ExecStart=+/usr/bin/bash -c "echo 'heartbeat' > /sys/class/leds/red:power/trigger"
+ExecStop=+/usr/bin/bash -c "echo 'default-on' > /sys/class/leds/red:power/trigger"
+
+[Install]
+WantedBy=default.target

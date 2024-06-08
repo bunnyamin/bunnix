@@ -1,0 +1,15 @@
+# `-rw-r--r-- root root /etc/systemd/system/homeassistant@homeassistant.service`
+
+[Unit]
+Description=Home Assistant
+After=network-online.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/home/%i/.homeassistant
+ExecStart=/sub/homeassistant/bin/hass -c "/home/%i/.homeassistant"
+RestartForceExitStatus=100
+
+[Install]
+WantedBy=multi-user.target
