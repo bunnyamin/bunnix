@@ -1,0 +1,25 @@
+# `-rw-r--r-- root root /etc/nftables/router/prerouting.chain`
+
+# PREROUTING CHHAIN
+# Extends `base.conf`
+
+chain prerouting {
+  log prefix "[nftables.router.prerouting] Prerouting: " flags all counter
+
+  type nat hook prerouting priority 0; policy accept
+
+  #
+  # Rules
+  #
+  include "/etc/nftables/router/prerouting.rules"
+
+  #
+  # Log
+  #
+  log prefix "[nftables.router.prerouting] Dropped: " flags all counter drop
+  ip saddr != $log_ignore_ipv4 tcp dport != $log_ignore_tcp log prefix "[nftables.router.prerouting] Denied TCP: " flags all counter
+  ip saddr != $log_ignore_ipv4 udp dport != $log_ignore_udp log prefix "[nftables.router.prerouting] Denied UDP: " flags all counter
+
+}
+
+

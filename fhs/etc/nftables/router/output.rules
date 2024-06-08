@@ -1,0 +1,12 @@
+# `-rw-r--r-- root root /etc/nftables/router/output.conf`
+
+# OUTPUT RULES
+# Extends `output.chain`
+
+#
+# TEMPLATE
+#
+# oifname . ip saddr . tcp sport . ip daddr . tcp dport . ct state {new, established, related} accept
+# oifname . ip saddr . udp sport . ip daddr . udp dport . ct state {new, established, related} accept
+#
+

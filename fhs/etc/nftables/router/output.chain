@@ -1,0 +1,37 @@
+# `-rw-r--r-- root root /etc/nftables/router/output.chain`
+
+# OUTPUT CHAIN
+# Extends `output.chain`
+
+chain output {
+  #log prefix "[nftables.router.output] Output: " flags all counter
+
+  type filter hook output priority 100; policy drop
+
+  # Early drop of invalid connections
+  ct state invalid drop
+
+  # Allow traffic from loopback interface only if to localhost
+  oifname "lo" ip  daddr $loopback_ipv4 accept
+  oifname "lo" ip6 daddr $loopback_ipv6 accept
+
+  # Allow all ICMP (ping) and IGMP (multicast) traffic
+  ip protocol icmp   accept
+  ip6 nexthdr icmpv6 accept
+  ip protocol igmp   accept
+
+  meta l4proto ipv6-icmp accept
+
+  #
+  # Rules
+  #
+  include "/etc/nftables/router/output.rules"
+
+  #
+  # Log
+  #
+  log prefix "[nftables.router.output] Dropped: " flags all counter drop
+  tcp dport != $log_ignore_tcp log prefix "[nftables.router.output] Denied TCP: " flags all counter
+  udp dport != $log_ignore_tcp log prefix "[nftables.router.output] Denied UDP: " flags all counter
+
+}

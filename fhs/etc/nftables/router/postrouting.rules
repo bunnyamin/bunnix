@@ -1,0 +1,14 @@
+# `-rw-r--r-- root root /etc/nftables/router/postrouting.conf`
+
+# POSTROUTING RULES
+# Extends `postrouting.conf`
+
+#
+# TEMPLATE
+#
+# oifname . oifname . ip saddr . tcp sport . ip daddr . tcp dport . ct state {new, established, related} accept
+# oifname . ofiname . ip saddr . udp sport . ip daddr . udp dport . ct state {new, established, related} accept
+#
+
+
+

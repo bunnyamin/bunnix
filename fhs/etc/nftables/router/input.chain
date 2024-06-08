@@ -1,0 +1,41 @@
+# `-rw-r--r-- root root /etc/nftables/router/input.chain`
+
+# INPUT RULES
+# Intended for `base.conf`.
+
+chain input {
+  #log prefix "[nftables.router.input] Input: " flags all counter
+
+  type filter hook input priority 0; policy drop
+
+  # Early drop of invalid connections
+  ct state invalid drop
+
+  # Allow established and, or related connections
+  ct state {established, related} accept
+
+  # Allow traffic from loopback interface only if from localhost
+  iifname "lo" ip  saddr $loopback_ipv4 ct state {new, established, related} accept
+  iifname "lo" ip  saddr $prv6_ipv4     ct state {new, established, related} accept
+  iifname "lo" ip6 saddr $loopback_ipv6 ct state {new, established, related} accept
+
+  # Allow all ICMP (ping) and IGMP (multicast) traffic
+  # * The limit rate is intended to prevent some types of flood attacks.
+  # * `ipv6-icmp` and `icmpv6` are aliases.
+  ip protocol icmp   limit rate 4/second ct state {established, related} accept
+  ip6 nexthdr icmpv6 limit rate 4/second ct state {established, related} accept
+  ip protocol igmp   limit rate 4/second ct state {established, related} accept
+
+  #
+  # Rules
+  #
+  include "/etc/nftables/router/input.rules"
+
+  #
+  # Log
+  #
+  #log prefix "[nftables.router.input] Dropped: " flags all counter drop
+  ip saddr != $log_ignore_ipv4 tcp dport != $log_ignore_tcp log prefix "[nftables.router.input] Input Denied TCP: " flags all counter
+  ip saddr != $log_ignore_ipv4 udp dport != $log_ignore_udp log prefix "[nftables.router.input] Input Denied UDP: " flags all counter
+
+}

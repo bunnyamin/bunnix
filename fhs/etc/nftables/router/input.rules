@@ -1,0 +1,13 @@
+# `-rw-r--r-- root root /etc/nftables/router/input.conf`
+
+# INPUT RULES
+# Extends `input.chain`
+
+#
+# TEMPLATE
+#
+# iifname . ip saddr . tcp sport . ip daddr . tcp dport . ct state {new, established, related} accept
+# iifname . ip saddr . udp sport . ip daddr . udp dport . ct state {new, established, related} accept
+#
+
+

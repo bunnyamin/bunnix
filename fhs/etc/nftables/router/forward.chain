@@ -1,0 +1,37 @@
+# `-rw-r--r-- root root /etc/nftables/router/forward.chain`
+
+# FORWARD RULES
+# Intended for `base.conf`.
+
+chain forward {
+  #log prefix "[nftables.router.forwarding] Forward: " flags all counter
+
+  type filter hook forward priority 0; policy drop
+
+  # Early drop of invalid connections
+  ct state invalid drop
+
+  # Allow established and, or related connections
+  ct state {established, related} accept
+
+  # LAN to LAN
+  iifname $lan_if_set oifname $lan_if_set accept
+
+  # LAN to VPN
+  iifname $lan_if_set oifname $wan_vpn_if accept
+
+  # WAN to VPN
+  iifname $wan_if_set oifname $wan_vpn_if accept
+
+  # Reject packages that are MULTICAST for internal use
+  # "[IPv4 Multicast Address Space Registry](https://www.iana.org/assignments/multicast-addresses/multicast-addresses.xhtml) Last updated 2022-06-09.
+  # The range of addresses between 224.0.0.0 and 224.0.0.255, inclusive,
+  # is reserved for the use of routing protocols and other low-level
+  # topology discovery or maintenance protocols, such as gateway discovery
+  # and group membership reporting.  Multicast routers should not forward
+  # any multicast datagram with destination addresses in this range,
+  # regardless of its TTL.
+  # "
+
+  log prefix "[nftables.router.forwarding] Dropped: " flags all counter drop
+}
